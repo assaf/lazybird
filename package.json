@@ -1,0 +1,37 @@
+{
+  "name": "lazybird",
+  "version": "1.0.0",
+  "description": "Lazy promises with Bluebird",
+  "homepage": "https://github.com/assaf/lazybird",
+  "author": "Assaf Arkin <assaf@labnotes.org> (http://labnotes.org/)",
+  "keywords": [
+    "lazy",
+    "promise"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "bluebird": "2.x.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/assaf/lazybird"
+  },
+  "bugs": {
+    "url": "http://github.com/assaf/lazybird/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/assaf/lazybird/blob/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  }
+}
