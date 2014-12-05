@@ -18,7 +18,7 @@ The promise only resolves when you ask it to.
 
 For example:
 
-```
+```javascript
 // Click the "Edit" link, it will show delete link next to each item
 return browser
   .clickLink('#edit-items')
@@ -57,7 +57,7 @@ including `then`, `catch`, `finally`, `done`, `reflect`, `value`, etc).
 
 ## Example
 
-```
+```javascript
 const Lazybird = require('lazybird');
 
 const lazy = new Lazybird(function(resolve) {
