@@ -20,7 +20,7 @@ describe('resolving promise', function() {
           .then(function() {
             resolved = true;
           })
-          .return([]);
+          .return([]);  // `.call()` and `.get()` need a value to operate on.
         resolve(outcome);
       });
 
@@ -59,6 +59,10 @@ describe('resolving promise', function() {
 
   describeMethod('get', function(promise) {
     return promise.get(0);
+  });
+
+  describeMethod('nodeify', function(promise) {
+    return promise.nodeify(noop, noop);
   });
 
   describeMethod('return', function(promise) {

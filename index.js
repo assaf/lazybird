@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 
 // then methods accept fulfilled and rejected handlers: they're expected to lazy
 // resolve the promise
-const THEN_METHODS = [ 'call', 'catch', 'done', 'error', 'finally', 'get', 'reflect', 'return', 'tap', 'then', 'throw' ];
+const THEN_METHODS = [ 'call', 'catch', 'done', 'error', 'finally', 'get', 'nodeify', 'reflect', 'return', 'tap', 'then', 'throw' ];
 // inspection methods just look at the current state of the promsie, but do not
 // trigger resolving
 const INSPECTION_METHODS = [ 'isFulfilled', 'isPending', 'isRejected', 'reason', 'value' ];
