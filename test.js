@@ -5,36 +5,68 @@ const Promise  = require('bluebird');
 
 describe('resolving promise', function() {
 
-  var resolving = false;
-  var resolved  = false;
+  const SIMPLE_METHODS = [ 'catch', 'done', 'error', 'finally', 'reflect', 'tap', 'then' ];
 
-  const promise = new Lazybird(function(resolve) {
-    resolving = true;
-    const outcome = Promise.resolve()
-      .then(function() {
-        resolved = true;
+  const noop = function () {};
+
+  function describeMethod(name, implementation) {
+    describe("with '" + name + "'", function() {
+      var resolving = false;
+      var resolved  = false;
+
+      const promise = new Lazybird(function(resolve) {
+        resolving = true;
+        const outcome = Promise.resolve()
+          .then(function() {
+            resolved = true;
+          })
+          .return([]);
+        resolve(outcome);
       });
-    resolve(outcome);
+
+      describe('initially', function() {
+        before(setTimeout);
+
+        it('does not resolve', function() {
+          assert(!resolving);
+          assert(!resolved);
+        });
+
+        describe('after invocation', function() {
+          before(function() {
+            return implementation(promise);
+          });
+
+          it('resolves', function() {
+            assert(resolving);
+            assert(resolved);
+          });
+        });
+      });
+    });
+  }
+
+  // Simple methods just need a single handler argument.
+  SIMPLE_METHODS.forEach(function (name) {
+    describeMethod(name, function(promise) {
+      return promise[name](noop);
+    });
   });
 
-  describe('initially', function() {
-    before(setTimeout);
+  describeMethod('call', function(promise) {
+    return promise.call('slice');
+  });
 
-    it('does not resolve', function() {
-      assert(!resolving);
-      assert(!resolved);
-    });
+  describeMethod('get', function(promise) {
+    return promise.get(0);
+  });
 
-    describe('then', function() {
-      before(function(done) {
-        promise.then(done, done);
-      });
+  describeMethod('return', function(promise) {
+    return promise.return('foo');
+  });
 
-      it('resolves', function() {
-        assert(resolving);
-        assert(resolved);
-      });
-    });
+  describeMethod('throw', function(promise) {
+    return promise.throw(new Error('boom')).catch(noop);
   });
 
 });
